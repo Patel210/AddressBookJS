@@ -151,6 +151,15 @@ function updateContact(property, value, contact) {
     }
 }
 
+function deleteContact(firstName, lastName, addressBook) {
+    let contact = findContact(firstName, lastName, addressBook);
+    if (contact != null) {
+        return addressBook.filter(contactObj => contactObj != contact);
+    } else {
+        console.log("Contact Not Found!");
+    }
+}
+
 let addressBook = new Array();
 try {
     addressBook.push(new Contact("Praket", "Parth", "Hauz Khas", "New Delhi", "Delhi",
@@ -169,3 +178,7 @@ let contact = findContact("Praket", "Parth", addressBook);
 updateContact("Last Name", "Sharma", contact);
 updateContact("Email", "praket.sharma@gmail.com", contact);
 console.log("Updated Contact: " + contact.toString());
+
+addressBook = deleteContact("Praket", "Sharma", addressBook);
+console.log("Contacts: ");
+addressBook.forEach(contact => console.log(contact.toString()));
