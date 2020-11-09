@@ -105,6 +105,17 @@ class Contact {
     }
 }
 
+function addContactToAddressBook(contact, addressBook) {
+    let result = addressBook.find(contactObj => {
+        return contactObj.firstName == contact.firstName && contactObj.lastName == contact.lastName;
+    });
+    if (!result) {
+        addressBook.push(contact);
+    } else {
+        throw "Contact By That Name Already Present";
+    }
+}
+
 function findContact(firstName, lastName, addressBook) {
     let contact;
     addressBook.forEach(contactObj => {
@@ -166,12 +177,12 @@ function getContactCount(addressBook) {
 
 let addressBook = new Array();
 try {
-    addressBook.push(new Contact("Praket", "Parth", "Hauz Khas", "New Delhi", "Delhi",
-                                110016, 9876543210, "praket.parth@gmail.com"));
-    addressBook.push(new Contact("Vishal", "Gupta", "Malta Road", "Jaipur", "Rajasthan",
-                                330016, "+91 9876543210", "vishal.gupta@gmail.com"));
-    addressBook.push(new Contact("Vaishali", "Sharma", "Santa Cruz", "Mumbai", "Maharashtra",
-                                210016, "+91 9876546789", "vaishali.s.sharma@gmail.com"));
+    addContactToAddressBook(new Contact("Praket", "Parth", "Hauz Khas", "New Delhi", "Delhi",
+                                110016, 9876543210, "praket.parth@gmail.com"), addressBook);
+    addContactToAddressBook(new Contact("Vishal", "Gupta", "Malta Road", "Jaipur", "Rajasthan",
+                                330016, "+91 9876543210", "vishal.gupta@gmail.com"), addressBook);
+    addContactToAddressBook(new Contact("Vaishali", "Sharma", "Santa Cruz", "Mumbai", "Maharashtra",
+                                210016, "+91 9876546789", "vaishali.s.sharma@gmail.com"), addressBook);
 } catch (error) {
     console.log(error);
 }
@@ -189,3 +200,10 @@ addressBook.forEach(contact => console.log(contact.toString()));
 
 let contactCount = getContactCount(addressBook);
 console.log("Number of Contacts: " + contactCount);
+
+try {
+    addContactToAddressBook(new Contact("Vaishali", "Sharma", "Andheri", "Mumbai", "Maharashtra",
+                                    220016, 9876546780, "vaishali.sharma@gmail.com"), addressBook);
+} catch (error) {
+    console.log(error);
+}
