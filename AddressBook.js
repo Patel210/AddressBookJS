@@ -160,6 +160,10 @@ function deleteContact(firstName, lastName, addressBook) {
     }
 }
 
+function getContactCount(addressBook) {
+    return addressBook.reduce(count => count+1, 0);
+}
+
 let addressBook = new Array();
 try {
     addressBook.push(new Contact("Praket", "Parth", "Hauz Khas", "New Delhi", "Delhi",
@@ -182,3 +186,6 @@ console.log("Updated Contact: " + contact.toString());
 addressBook = deleteContact("Praket", "Sharma", addressBook);
 console.log("Contacts: ");
 addressBook.forEach(contact => console.log(contact.toString()));
+
+let contactCount = getContactCount(addressBook);
+console.log("Number of Contacts: " + contactCount);
