@@ -172,7 +172,7 @@ function deleteContact(firstName, lastName, addressBook) {
 }
 
 function getContactCount(addressBook) {
-    return addressBook.reduce(count => count+1, 0);
+    return addressBook.reduce(count => count + 1, 0);
 }
 
 function getContactsInParticularCity(city, addressBook) {
@@ -203,6 +203,30 @@ function getContactsByProperty(property, addressBook) {
         });
     }
     return contactsByPropertyMap;
+}
+
+function getContactCountByProperty(property, addressBook) {
+    let contactCountByPropertyMap = new Map();
+    if (property == "City") {
+        addressBook.forEach(contact => {
+            let city = contact.city;
+            if (!contactCountByPropertyMap.get(city)) {
+                let count = addressBook.filter(contactObj => contactObj.city == city)
+                                       .reduce(count => count + 1, 0);
+                contactCountByPropertyMap.set(city, count);
+            }
+        });
+    } else if (property == "State") {
+        addressBook.forEach(contact => {
+            let state = contact.state;
+            if (!contactCountByPropertyMap.get(state)) {
+                let count = addressBook.filter(contactObj => contactObj.state == state)
+                                       .reduce(count => count + 1, 0);
+                contactCountByPropertyMap.set(state, count);
+            }
+        });
+    }
+    return contactCountByPropertyMap;
 }
 
 let addressBook = new Array();
@@ -253,3 +277,10 @@ console.log(contactsByCity);
 let contactsByState = getContactsByProperty("State", addressBook);
 console.log("Contacts By State: ")
 console.log(contactsByState);
+
+let contactCountByCity = getContactCountByProperty("City", addressBook);
+console.log("Contact Count By City:");
+console.log(contactCountByCity);
+let contactCountByState = getContactCountByProperty("State", addressBook);
+console.log("Contact Count By State:");
+console.log(contactCountByState);
