@@ -229,6 +229,10 @@ function getContactCountByProperty(property, addressBook) {
     return contactCountByPropertyMap;
 }
 
+function sortAddressBook(addressBook) {
+    addressBook.sort((contact, contactObj) => contact.firstName.localeCompare(contactObj.firstName));
+}
+
 let addressBook = new Array();
 try {
     addContactToAddressBook(new Contact("Praket", "Parth", "Hauz Khas", "New Delhi", "Delhi",
@@ -284,3 +288,6 @@ console.log(contactCountByCity);
 let contactCountByState = getContactCountByProperty("State", addressBook);
 console.log("Contact Count By State:");
 console.log(contactCountByState);
+
+sortAddressBook(addressBook);
+console.log(addressBook.toString());
